@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4167225a5054455d912054b50cd6f2f1" Name="Diagram1">
+        <EntityTypeShape EntityType="bd_comida_rapidaModel.Comida" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="bd_comida_rapidaModel.Ingrediente_en_comida" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="bd_comida_rapidaModel.Ingrediente" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bd_comida_rapidaModel.Rol" Width="1.5" PointX="5.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bd_comida_rapidaModel.Tamanio" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bd_comida_rapidaModel.Tipos" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="bd_comida_rapidaModel.Usuario" Width="1.5" PointX="8" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="bd_comida_rapidaModel.FK_Comidas_Tamanios" ManuallyRouted="false" />
+        <AssociationConnector Association="bd_comida_rapidaModel.FK_Comidas_Tipos" ManuallyRouted="false" />
+        <AssociationConnector Association="bd_comida_rapidaModel.FK_Ingrediente_en_comida_Comidas" ManuallyRouted="false" />
+        <AssociationConnector Association="bd_comida_rapidaModel.FK_Ingrediente_en_comida_Ingredientes" ManuallyRouted="false" />
+        <AssociationConnector Association="bd_comida_rapidaModel.FK_Usuarios_Rol" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

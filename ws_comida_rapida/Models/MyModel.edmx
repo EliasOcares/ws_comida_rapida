@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bd_comida_rapidaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Comidas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="id_tamanio" Type="int" Nullable="false" />
+          <Property Name="id_tipo" Type="int" Nullable="false" />
+          <Property Name="precio" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ingrediente_en_comida">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_comida" Type="int" Nullable="false" />
+          <Property Name="id_ingrediente" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ingredientes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tamanios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tipos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellidos" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="rut" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="clave" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="id_rol" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Comidas_Tamanios">
+          <End Role="Tamanios" Type="Self.Tamanios" Multiplicity="1" />
+          <End Role="Comidas" Type="Self.Comidas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tamanios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comidas">
+              <PropertyRef Name="id_tamanio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comidas_Tipos">
+          <End Role="Tipos" Type="Self.Tipos" Multiplicity="1" />
+          <End Role="Comidas" Type="Self.Comidas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comidas">
+              <PropertyRef Name="id_tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingrediente_en_comida_Comidas">
+          <End Role="Comidas" Type="Self.Comidas" Multiplicity="1" />
+          <End Role="Ingrediente_en_comida" Type="Self.Ingrediente_en_comida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comidas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ingrediente_en_comida">
+              <PropertyRef Name="id_comida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingrediente_en_comida_Ingredientes">
+          <End Role="Ingredientes" Type="Self.Ingredientes" Multiplicity="1" />
+          <End Role="Ingrediente_en_comida" Type="Self.Ingrediente_en_comida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingredientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ingrediente_en_comida">
+              <PropertyRef Name="id_ingrediente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="id_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bd_comida_rapidaModelStoreContainer">
+          <EntitySet Name="Comidas" EntityType="Self.Comidas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ingrediente_en_comida" EntityType="Self.Ingrediente_en_comida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ingredientes" EntityType="Self.Ingredientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tamanios" EntityType="Self.Tamanios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipos" EntityType="Self.Tipos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comidas_Tamanios" Association="Self.FK_Comidas_Tamanios">
+            <End Role="Tamanios" EntitySet="Tamanios" />
+            <End Role="Comidas" EntitySet="Comidas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comidas_Tipos" Association="Self.FK_Comidas_Tipos">
+            <End Role="Tipos" EntitySet="Tipos" />
+            <End Role="Comidas" EntitySet="Comidas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingrediente_en_comida_Comidas" Association="Self.FK_Ingrediente_en_comida_Comidas">
+            <End Role="Comidas" EntitySet="Comidas" />
+            <End Role="Ingrediente_en_comida" EntitySet="Ingrediente_en_comida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingrediente_en_comida_Ingredientes" Association="Self.FK_Ingrediente_en_comida_Ingredientes">
+            <End Role="Ingredientes" EntitySet="Ingredientes" />
+            <End Role="Ingrediente_en_comida" EntitySet="Ingrediente_en_comida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Rol" Association="Self.FK_Usuarios_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bd_comida_rapidaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Comida">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_tamanio" Type="Int32" Nullable="false" />
+          <Property Name="id_tipo" Type="Int32" Nullable="false" />
+          <Property Name="precio" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Tamanio" Relationship="Self.FK_Comidas_Tamanios" FromRole="Comidas" ToRole="Tamanios" />
+          <NavigationProperty Name="Tipos" Relationship="Self.FK_Comidas_Tipos" FromRole="Comidas" ToRole="Tipos" />
+          <NavigationProperty Name="Ingrediente_en_comida" Relationship="Self.FK_Ingrediente_en_comida_Comidas" FromRole="Comidas" ToRole="Ingrediente_en_comida" />
+        </EntityType>
+        <EntityType Name="Ingrediente_en_comida">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_comida" Type="Int32" Nullable="false" />
+          <Property Name="id_ingrediente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Comida" Relationship="Self.FK_Ingrediente_en_comida_Comidas" FromRole="Ingrediente_en_comida" ToRole="Comidas" />
+          <NavigationProperty Name="Ingrediente" Relationship="Self.FK_Ingrediente_en_comida_Ingredientes" FromRole="Ingrediente_en_comida" ToRole="Ingredientes" />
+        </EntityType>
+        <EntityType Name="Ingrediente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Ingrediente_en_comida" Relationship="Self.FK_Ingrediente_en_comida_Ingredientes" FromRole="Ingredientes" ToRole="Ingrediente_en_comida" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuarios_Rol" FromRole="Rol" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Tamanio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Comidas" Relationship="Self.FK_Comidas_Tamanios" FromRole="Tamanios" ToRole="Comidas" />
+        </EntityType>
+        <EntityType Name="Tipos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Comidas" Relationship="Self.FK_Comidas_Tipos" FromRole="Tipos" ToRole="Comidas" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rut" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clave" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_rol" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK_Usuarios_Rol" FromRole="Usuarios" ToRole="Rol" />
+        </EntityType>
+        <Association Name="FK_Comidas_Tamanios">
+          <End Role="Tamanios" Type="Self.Tamanio" Multiplicity="1" />
+          <End Role="Comidas" Type="Self.Comida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tamanios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comidas">
+              <PropertyRef Name="id_tamanio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comidas_Tipos">
+          <End Role="Tipos" Type="Self.Tipos" Multiplicity="1" />
+          <End Role="Comidas" Type="Self.Comida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Comidas">
+              <PropertyRef Name="id_tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingrediente_en_comida_Comidas">
+          <End Role="Comidas" Type="Self.Comida" Multiplicity="1" />
+          <End Role="Ingrediente_en_comida" Type="Self.Ingrediente_en_comida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comidas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ingrediente_en_comida">
+              <PropertyRef Name="id_comida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingrediente_en_comida_Ingredientes">
+          <End Role="Ingredientes" Type="Self.Ingrediente" Multiplicity="1" />
+          <End Role="Ingrediente_en_comida" Type="Self.Ingrediente_en_comida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingredientes">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ingrediente_en_comida">
+              <PropertyRef Name="id_ingrediente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuarios_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="id_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bd_comida_rapidaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Comidas" EntityType="Self.Comida" />
+          <EntitySet Name="Ingrediente_en_comida" EntityType="Self.Ingrediente_en_comida" />
+          <EntitySet Name="Ingredientes" EntityType="Self.Ingrediente" />
+          <EntitySet Name="Rols" EntityType="Self.Rol" />
+          <EntitySet Name="Tamanios" EntityType="Self.Tamanio" />
+          <EntitySet Name="Tipos" EntityType="Self.Tipos" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Comidas_Tamanios" Association="Self.FK_Comidas_Tamanios">
+            <End Role="Tamanios" EntitySet="Tamanios" />
+            <End Role="Comidas" EntitySet="Comidas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comidas_Tipos" Association="Self.FK_Comidas_Tipos">
+            <End Role="Tipos" EntitySet="Tipos" />
+            <End Role="Comidas" EntitySet="Comidas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingrediente_en_comida_Comidas" Association="Self.FK_Ingrediente_en_comida_Comidas">
+            <End Role="Comidas" EntitySet="Comidas" />
+            <End Role="Ingrediente_en_comida" EntitySet="Ingrediente_en_comida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingrediente_en_comida_Ingredientes" Association="Self.FK_Ingrediente_en_comida_Ingredientes">
+            <End Role="Ingredientes" EntitySet="Ingredientes" />
+            <End Role="Ingrediente_en_comida" EntitySet="Ingrediente_en_comida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuarios_Rol" Association="Self.FK_Usuarios_Rol">
+            <End Role="Rol" EntitySet="Rols" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bd_comida_rapidaModelStoreContainer" CdmEntityContainer="bd_comida_rapidaEntities">
+          <EntitySetMapping Name="Comidas">
+            <EntityTypeMapping TypeName="bd_comida_rapidaModel.Comida">
+              <MappingFragment StoreEntitySet="Comidas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id_tamanio" ColumnName="id_tamanio" />
+                <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ingrediente_en_comida">
+            <EntityTypeMapping TypeName="bd_comida_rapidaModel.Ingrediente_en_comida">
+              <MappingFragment StoreEntitySet="Ingrediente_en_comida">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_comida" ColumnName="id_comida" />
+                <ScalarProperty Name="id_ingrediente" ColumnName="id_ingrediente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ingredientes">
+            <EntityTypeMapping TypeName="bd_comida_rapidaModel.Ingrediente">
+              <MappingFragment StoreEntitySet="Ingredientes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rols">
+            <EntityTypeMapping TypeName="bd_comida_rapidaModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tamanios">
+            <EntityTypeMapping TypeName="bd_comida_rapidaModel.Tamanio">
+              <MappingFragment StoreEntitySet="Tamanios">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipos">
+            <EntityTypeMapping TypeName="bd_comida_rapidaModel.Tipos">
+              <MappingFragment StoreEntitySet="Tipos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="bd_comida_rapidaModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="rut" ColumnName="rut" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
